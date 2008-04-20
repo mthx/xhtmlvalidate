@@ -1,0 +1,57 @@
+<project name="xhtmlvalidate" default="all" basedir=".">
+
+  <property name="source" value="src" />   
+  <property name="build-classes" value="ant-build/classes" />   
+  <property name="jar" value="${ant.project.name}.jar" />   
+  <property name="reports" value="reports" />   
+
+  <target name="init">
+     <mkdir dir="${build-classes}" />
+     <mkdir dir="${reports}" />
+  </target>
+
+  <target name="clean">
+    <delete dir="${build-classes}" />
+    <delete file="${war}"/>
+  </target>
+
+  <target name="compile" depends="init">
+    <javac srcdir="${source}"
+           destdir="${build-classes}">
+    </javac>
+    <copy todir="${build-classes}">
+      <fileset dir="${source}">
+        <include name="**/*.xml"/>
+        <include name="**/*.dtd"/>
+        <include name="**/*.ent"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="jar" depends="compile">
+    <jar destfile="${jar}" >
+      <fileset dir="${build-classes}">
+        <include name="**/*"/>
+      </fileset>
+    </jar>
+  </target>
+
+  <target name="unitTests" depends="compile">
+    <junit printsummary="yes" haltonfailure="yes">
+      <formatter type="plain" usefile="false"/>
+      <classpath>
+        <pathelement location="${build-classes}"/>
+      </classpath>
+      <formatter type="xml"/>
+      <batchtest todir="${reports}">
+        <fileset dir="${source}">
+          <include name="**/Test*.java"/>
+        </fileset>
+      </batchtest>
+    </junit>
+  </target>
+
+  <target name="all" depends="unitTests, jar"/>
+
+</project>
+
