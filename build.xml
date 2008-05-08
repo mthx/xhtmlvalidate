@@ -16,14 +16,14 @@
   </target>
 
   <target name="compile" depends="init">
-    <javac srcdir="${source}"
-           destdir="${build-classes}">
+    <javac srcdir="${source}" destdir="${build-classes}" target="1.5">
     </javac>
     <copy todir="${build-classes}">
       <fileset dir="${source}">
         <include name="**/*.xml"/>
         <include name="**/*.dtd"/>
         <include name="**/*.ent"/>
+        <include name="**/*.xhtml"/>
       </fileset>
     </copy>
   </target>
