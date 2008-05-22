@@ -1,9 +1,3 @@
-xpathcontext
+xhtmlvalidate
 Copyright 2008 Matthew Hillsdon
-
-The following open source third-party libraries are used for 
-testing (i.e. not part of the jar file):
-
-EasyMock http://www.easymock.org
-JUnit http://www.junit.org
 
